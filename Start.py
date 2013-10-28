@@ -164,12 +164,17 @@ Matrix[17][16] = 2.0
 
 def getTypes(n):
   #Return a boolean[] with the types of combination n
-  k = 128
+  print('Getting types for ' + repr(n))
+  k = 32768
   idx = 0
   types = [False] * 17
   while(k > 0):
-    if(k >= 128):
+    #print('k = ' + repr(k))
+    if(k <= n):
+      #print(n)
       types[idx] = True
+      n -= k
+      #print(n)
     k /= 2
     idx += 1
   return types
@@ -186,7 +191,7 @@ def dispEffect(types, effects):
     effectStr = "Effectiveness " + repr(effects[i]) + " against " + TypeStrings[i]
     print(effectStr)
   
-  print()
+  print('')
 
 
 '''
@@ -199,7 +204,7 @@ for attacker in range(0,17):
 
 
 #The i th bit tells us if the current type combination has type i
-for i in range(0, 32768):
+for i in range(0, 32767):
   types = getTypes(i)
   effects = [1.0] * 17
   for j in range(0,17):
